@@ -642,9 +642,7 @@ public class Compiler implements MessageConsumer {
       printAsError = true;
       RunnerException e = placeException(pieces[3], pieces[1], PApplet.parseInt(pieces[2]) - 1);
       if (e != null) {
-        SketchCode code = sketch.getCode(e.getCodeIndex());
-        String fileName = (code.isExtension("ino") || code.isExtension("pde")) ?
-          code.getPrettyName() : code.getFileName();
+        String fileName = e.getCodeFile().getPrettyName();
         int lineNum = e.getCodeLine() + 1;
         s = fileName + ":" + lineNum + ": error: " + pieces[3];
         if (exception == null) {
@@ -662,9 +660,7 @@ public class Compiler implements MessageConsumer {
         printAsError = false;
         RunnerException e = placeException(pieces[3], pieces[1], PApplet.parseInt(pieces[2]) - 1);
         if (e != null) {
-          SketchCode code = sketch.getCode(e.getCodeIndex());
-          String fileName = (code.isExtension("ino") || code.isExtension("pde")) ?
-            code.getPrettyName() : code.getFileName();
+          String fileName = e.getCodeFile().getPrettyName();
           int lineNum = e.getCodeLine() + 1;
           s = fileName + ":" + lineNum + ": warning: " + pieces[3];
         }
@@ -675,9 +671,7 @@ public class Compiler implements MessageConsumer {
           //System.out.println("Case 3: In function");
           RunnerException e = placeException(pieces[2], pieces[1], 0);
           if (e != null) {
-            SketchCode code = sketch.getCode(e.getCodeIndex());
-            String fileName = (code.isExtension("ino") || code.isExtension("pde")) ?
-              code.getPrettyName() : code.getFileName();
+            String fileName = e.getCodeFile().getPrettyName();
             s = fileName + ": In function " + pieces[2];
           }
           System.out.println(s);
