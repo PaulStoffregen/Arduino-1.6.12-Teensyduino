@@ -389,6 +389,7 @@ class FakeSerial extends Serial {
 		String cmdline = BaseNoGui.getHardwarePath() + File.separator
 			+ "tools" + File.separator + cmd;
 		try {
+			dispose_gateway();
 			gateway = Runtime.getRuntime().exec(new String[] {cmdline});
 			if (!gateway_shutdown_scheduled) {
 				Runtime.getRuntime().addShutdownHook(new Thread() {
@@ -399,7 +400,7 @@ class FakeSerial extends Serial {
 				gateway_shutdown_scheduled = true;
 			}
 		} catch (Exception e) {
-		       gateway = null;
+			dispose_gateway();
 			return false;
 		}
 		return true;
